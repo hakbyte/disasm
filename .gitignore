@@ -1,0 +1,3 @@
+# Binaries
+*.exe
+cmd/disasm/disasm
