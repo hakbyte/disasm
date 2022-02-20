@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"editor.rulers": [80],
+		"[go]": {
+			"editor.tabSize": 8,
+		}
+	}
+}
