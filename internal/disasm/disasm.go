@@ -43,5 +43,18 @@ func (d *Disasm) init(filename string) error {
 		return err
 	}
 
+	// Fill out remaining Disasm fields taking into consideration if it is
+	// either a 32 or 64 bit binary
+	switch oh := f.OptionalHeader.(type) {
+	case *pe.OptionalHeader32:
+		d.ib = uint64(oh.ImageBase)
+		d.bc = uint64(oh.BaseOfCode)
+		d.mode = mode32
+	case *pe.OptionalHeader64:
+		d.ib = oh.ImageBase
+		d.bc = uint64(oh.BaseOfCode)
+		d.mode = mode64
+	}
+
 	return nil
 }
