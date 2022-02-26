@@ -37,5 +37,11 @@ func (d *Disasm) init(filename string) error {
 	}
 	defer f.Close()
 
+	// Get code (for PE file it's in .text section)
+	d.text, err = f.Section(".text").Data()
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
