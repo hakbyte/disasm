@@ -8,7 +8,14 @@ import (
 )
 
 func main() {
-	_ := disasm.New(os.Args[1])
+	// Validate command line parameters
+	if len(os.Args) != 2 {
+		Usage()
+	}
+
+	// Let's go!
+	d := disasm.New(os.Args[1])
+	d.Decode()
 }
 
 // Usage prints the program usage to stdout and exit
