@@ -58,3 +58,8 @@ func (d *Disasm) init(filename string) error {
 
 	return nil
 }
+
+// Decode does a linear disassembly of binary
+func (d *Disasm) Decode() {
+	// ...
+}
