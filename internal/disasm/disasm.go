@@ -23,10 +23,11 @@ type Disasm struct {
 
 // New opens a program file and reads its content for later disassembly
 func New(filename string) *Disasm {
+	d := &Disasm{disasmList: make(map[uint64]string)}
 	if err := d.init(filename); err != nil {
 		log.Fatalln(err)
 	}
-	return nil
+	return d
 }
 
 // init initializes Disasm struct with the filename contents
