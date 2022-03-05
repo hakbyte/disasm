@@ -2,8 +2,10 @@ package disasm
 
 import (
 	"debug/pe"
+	"fmt"
 	"log"
 	"os"
+	"sort"
 )
 
 // Processor modes: either 32-bit or 64-bit
@@ -63,4 +65,16 @@ func (d *Disasm) init(filename string) error {
 // Decode does a linear disassembly of binary
 func (d *Disasm) Decode() {
 	// ...
+}
+
+// print prints disassembly list to standard output
+func (d *Disasm) print() {
+	keys := make([]uint64, 0, len(d.disasmList))
+	for k := range d.disasmList {
+		keys = append(keys, k)
+	}
+	sort.Slice(keys, func(i, j int) bool { return keys[i] < keys[j] })
+	for _, k := range keys {
+		fmt.Printf("0x%x: %s\n", k, d.disasmList[k])
+	}
 }
