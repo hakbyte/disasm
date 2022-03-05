@@ -6,6 +6,8 @@ import (
 	"log"
 	"os"
 	"sort"
+
+	"golang.org/x/arch/x86/x86asm"
 )
 
 // Processor modes: either 32-bit or 64-bit
@@ -64,7 +66,14 @@ func (d *Disasm) init(filename string) error {
 
 // Decode does a linear disassembly of binary
 func (d *Disasm) Decode() {
-	// ...
+	var p int
+	for p < len(d.text) {
+		op, _ := x86asm.Decode(d.text[p:], int(d.mode))
+		x86asm.IntelSyntax(op, d.mode, nil)
+		d.disasmList[uint64(p)+d.ib+d.bc] = x86asm.IntelSyntax(op, d.mode, nil)
+		p += op.Len
+	}
+	d.print()
 }
 
 // print prints disassembly list to standard output
